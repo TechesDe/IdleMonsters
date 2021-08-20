@@ -11,7 +11,10 @@ public class Moster : MonoBehaviour {
     //[SerializeField]
     //private EventListener _fixedUpdateEvent; //Using to Fixed Update or Pause
 
-    public Transform field;
+    [SerializeField]
+    private ScriptableInt monsterCount;
+
+    public Transform spawner;
 
     public int hp;
     public int bornHp = 100;
@@ -21,14 +24,13 @@ public class Moster : MonoBehaviour {
 
     public float fault = 1; //delta distance to change target
 
-    [SerializeField]
-    private Slider _hpSlider;
+    public Slider hpSlider;
 
     private void Awake() {
         if (bornHp <= 0)
             Destroy(gameObject);
         hp = bornHp;
-        randomTarget();
+        monsterCount.value++;
     }
 
     public void setHP(int value,bool isBorn = false) {
@@ -42,6 +44,7 @@ public class Moster : MonoBehaviour {
         } else {
             hp = value;
         }
+        randomTarget();
     }
 
     private void OnEnable() {
@@ -70,15 +73,17 @@ public class Moster : MonoBehaviour {
         hp--;
         if (hp <= 0) {
             //TODO: Destroy
+            monsterCount.value--;
+            Destroy(gameObject);
         }
-        _hpSlider.value = (float)hp / bornHp;
-        Text text=_hpSlider.GetComponentInChildren<Text>();
+        hpSlider.value = (float)hp / bornHp;
+        Text text=hpSlider.GetComponentInChildren<Text>();
         text.text = hp + "/" + bornHp;
     }
 
     private void randomTarget() {
-        float x = Random.Range(field.position.x - field.localScale.x / 2 + transform.localScale.x / 2, field.position.x + field.localScale.x / 2 - transform.localScale.x / 2);
-        float y = Random.Range(field.position.y - field.localScale.y / 2 + transform.localScale.y / 2, field.position.y + field.localScale.y / 2 - transform.localScale.y / 2);
+        float x = Random.Range(spawner.position.x - spawner.localScale.x / 2 + transform.localScale.x / 2, spawner.position.x + spawner.localScale.x / 2 - transform.localScale.x / 2);
+        float y = Random.Range(spawner.position.y - spawner.localScale.y / 2 + transform.localScale.y / 2, spawner.position.y + spawner.localScale.y / 2 - transform.localScale.y / 2);
         target = new Vector3(x, y, transform.position.z);
     }
 
