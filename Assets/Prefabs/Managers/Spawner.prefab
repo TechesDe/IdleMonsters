@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8971279025210721358}
   - component: {fileID: 8971279025210721359}
   - component: {fileID: 8530347499103535934}
+  - component: {fileID: 8819197900688304130}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -110,3 +111,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterCount: {fileID: 11400000, guid: f08035ed902c036469f2d351ba3e268f, type: 2}
   monsterPrefab: {fileID: 1010761591032508707, guid: d4c1531105c910840a21ebe39a3743e2, type: 3}
+  _hpSlider: {fileID: 0}
+  _updateEvent: {fileID: 8819197900688304130}
+  DelayTimer: 0
+--- !u!114 &8819197900688304130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971279025210721356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c9accab0aab458a8b115beb6ae68e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _someEvent: {fileID: 11400000, guid: 0b5eeaddcd1ee3e46952d3264f019f2d, type: 2}

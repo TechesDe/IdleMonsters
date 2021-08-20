@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1010761591032508710}
   - component: {fileID: 1010761591032508705}
   - component: {fileID: 1010761591032508704}
+  - component: {fileID: 8642692638295730000}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -110,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _updateEvent: {fileID: 1010761591032508704}
+  _gameOver: {fileID: 8642692638295730000}
   monsterCount: {fileID: 11400000, guid: f08035ed902c036469f2d351ba3e268f, type: 2}
   spawner: {fileID: 0}
   hp: 100
@@ -117,7 +119,7 @@ MonoBehaviour:
   speed: 1
   target: {x: 0, y: 0, z: 0}
   fault: 1
-  _hpSlider: {fileID: 0}
+  hpSlider: {fileID: 0}
 --- !u!114 &1010761591032508704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,3 +133,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _someEvent: {fileID: 11400000, guid: 0b5eeaddcd1ee3e46952d3264f019f2d, type: 2}
+--- !u!114 &8642692638295730000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010761591032508707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c9accab0aab458a8b115beb6ae68e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _someEvent: {fileID: 11400000, guid: e76056b07e08a8b43a387fddf5b6ea7b, type: 2}

@@ -12,6 +12,9 @@ public class Moster : MonoBehaviour {
     //private EventListener _fixedUpdateEvent; //Using to Fixed Update or Pause
 
     [SerializeField]
+    private EventListener _gameOver;
+
+    [SerializeField]
     private ScriptableInt monsterCount;
 
     public Transform spawner;
@@ -49,12 +52,17 @@ public class Moster : MonoBehaviour {
 
     private void OnEnable() {
         _updateEvent.OnEventHappened += UpdateBehaviour;
+        _gameOver.OnEventHappened += SelfDestroy;
     }
 
     private void OnDisable() {
         _updateEvent.OnEventHappened -= UpdateBehaviour;
+        _gameOver.OnEventHappened -= SelfDestroy;
     }
 
+    private void SelfDestroy() {
+        Destroy(gameObject);
+    }
 
     private void UpdateBehaviour() {
         #region Move
@@ -70,7 +78,10 @@ public class Moster : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        hp--;
+        if (GManager.Instance != null)
+            hp -= GManager.Instance.lvlDamage;
+        else
+            hp--;
         if (hp <= 0) {
             //TODO: Destroy
             monsterCount.value--;
@@ -78,7 +89,10 @@ public class Moster : MonoBehaviour {
         }
         hpSlider.value = (float)hp / bornHp;
         Text text=hpSlider.GetComponentInChildren<Text>();
-        text.text = hp + "/" + bornHp;
+        if(hp>=0)
+            text.text = hp + "/" + bornHp;
+        else
+            text.text = 0 + "/" + bornHp;
     }
 
     private void randomTarget() {

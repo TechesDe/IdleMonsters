@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Events;
 
 public class Spawner : MonoBehaviour
 {
@@ -14,10 +15,39 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private Slider _hpSlider;
 
+    
+
+    [SerializeField]
+    private float DelayTimer=0f;
+
+    [SerializeField]
+    private int Hp = 10;
+
+    [SerializeField]
+    private EventListener _updateEvent;
+
     private void Awake() {
         monsterCount.value = 0;
     }
-    
+
+    private void OnEnable() {
+        _updateEvent.OnEventHappened += UpdateBehaviour;
+    }
+
+    private void OnDisable() {
+        _updateEvent.OnEventHappened -= UpdateBehaviour;
+    }
+
+    private void UpdateBehaviour() {
+        if (DelayTimer < GManager.Instance.MaxDifficulty + 1 - GManager.Instance.difficulty)
+            DelayTimer += Time.deltaTime;
+        else {
+            DelayTimer = 0f;
+            Spawn();
+            Hp = (int)(GManager.Instance.difficulty * GManager.Instance.lvlDamage * 10+10 * GManager.Instance.lvlDamage);
+        }
+    }
+
     public void Spawn() {
         GameObject monsterInst = Instantiate(monsterPrefab);
         float x = Random.Range(transform.position.x - transform.localScale.x / 2 + monsterInst.transform.localScale.x / 2, transform.position.x + transform.localScale.x / 2 - monsterInst.transform.localScale.x / 2);
@@ -27,6 +57,7 @@ public class Spawner : MonoBehaviour
         
         moster.hpSlider = _hpSlider;
         moster.spawner = transform;
-        moster.setHP(150, true);
+        moster.speed = 1 + GManager.Instance.difficulty;
+        moster.setHP(Hp, true);
     }
 }
