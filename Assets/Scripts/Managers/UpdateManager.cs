@@ -13,6 +13,10 @@ public class UpdateManager : MonoBehaviour
 
     public bool isPause = false;
 
+    public void PauseToogle(bool value) {
+        isPause = value;
+    }
+
     private void Update() {
         if(!isPause)
             _update.Dispatch();
