@@ -5,6 +5,8 @@ using Events;
 
 public class UpdateManager : MonoBehaviour
 {
+    public static UpdateManager Instance;
+
     [SerializeField]
     private EventDispatcher _update;
 
@@ -12,6 +14,15 @@ public class UpdateManager : MonoBehaviour
     private EventDispatcher _fixedUpdate;
 
     public bool isPause = false;
+
+    private void Awake() {
+        if (Instance != null) {
+            Debug.LogError("UpdateManager already created");
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     public void PauseToogle(bool value) {
         isPause = value;
