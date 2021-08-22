@@ -15,27 +15,33 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private Slider _hpSlider;
 
-    
-
     [SerializeField]
     private float DelayTimer=0f;
 
     [SerializeField]
-    private int Hp = 10;
+    private int Hp;
+
+    private int defaulHp;
 
     [SerializeField]
     private EventListener _updateEvent;
 
+    [SerializeField]
+    private EventListener _restart;
+
     private void Awake() {
         monsterCount.value = 0;
+        defaulHp = Hp;
     }
 
     private void OnEnable() {
         _updateEvent.OnEventHappened += UpdateBehaviour;
+        _restart.OnEventHappened += Restart;
     }
 
     private void OnDisable() {
         _updateEvent.OnEventHappened -= UpdateBehaviour;
+        _restart.OnEventHappened -= Restart;
     }
 
     private void UpdateBehaviour() {
@@ -59,5 +65,9 @@ public class Spawner : MonoBehaviour
         moster.spawner = transform;
         moster.speed = 1 + GManager.Instance.difficulty;
         moster.setHP(Hp, true);
+    }
+
+    public void Restart() {
+        Hp = defaulHp;
     }
 }
