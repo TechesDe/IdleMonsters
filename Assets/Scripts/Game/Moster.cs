@@ -15,7 +15,10 @@ public class Moster : MonoBehaviour {
     private EventListener _gameOver;
 
     [SerializeField]
-    private ScriptableInt monsterCount;
+    private ScriptableInt _monsterCount;
+
+    [SerializeField]
+    private ScriptableInt _score;
 
     public Transform spawner;
 
@@ -33,7 +36,7 @@ public class Moster : MonoBehaviour {
         if (bornHp <= 0)
             Destroy(gameObject);
         hp = bornHp;
-        monsterCount.value++;
+        _monsterCount.value++;
     }
 
     public void setHP(int value,bool isBorn = false) {
@@ -84,7 +87,8 @@ public class Moster : MonoBehaviour {
             hp--;
         if (hp <= 0) {
             //TODO: Destroy
-            monsterCount.value--;
+            _monsterCount.value--;
+            _score.value += bornHp;
             Destroy(gameObject);
         }
         hpSlider.value = (float)hp / bornHp;
