@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class GManager : MonoBehaviour
     public float MaxDifficulty = 5f;
 
     [SerializeField]
-    private float speedOfDifficulty = 0.1f;
+    private float _speedOfDifficulty = 0.1f;
 
     public int lvlDamage = 1;
 
@@ -25,7 +26,13 @@ public class GManager : MonoBehaviour
 
 
     [SerializeField]
-    private ScriptableInt monsterCount;
+    private ScriptableInt _monsterCount;
+
+    [SerializeField]
+    private ScriptableRecords _records;
+
+    [SerializeField]
+    private ScriptableInt _score;
 
     [SerializeField]
     private EventListener _update;
@@ -43,6 +50,11 @@ public class GManager : MonoBehaviour
             return;
         }
         Instance = this;
+        
+    }
+
+    private void Start() {
+        Restart();
     }
 
     private void OnEnable() {
@@ -57,9 +69,18 @@ public class GManager : MonoBehaviour
 
     private void IncreasingDifficulty() {
         if(difficulty<MaxDifficulty)
-            difficulty += speedOfDifficulty * Time.deltaTime;
-        if (monsterCount.value > 10) {
+            difficulty += _speedOfDifficulty * Time.deltaTime;
+        if (_monsterCount.value > 10) {
             UpdateManager.Instance.PauseToogle(true);
+            ScriptableRecords.Record record;
+            record.date = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            record.score = _score.value;
+            int i = _records.records.Count - 1;
+            while (i >= 0 && _records.records[i].score < record.score) {
+                i--;
+            }
+            i++;
+            _records.records.Insert(i, record);
             _gameOver.Dispatch();
         }
     }
@@ -73,7 +94,8 @@ public class GManager : MonoBehaviour
         difficulty = 1f;
         lvlDamage = 1;
         _lvlText.text = lvlDamage.ToString();
-        monsterCount.value = 0;
+        _monsterCount.value = 0;
+        _score.value = 0;
         _gamePanel.gameObject.SetActive(true);
         UpdateManager.Instance.PauseToogle(false);
     }
