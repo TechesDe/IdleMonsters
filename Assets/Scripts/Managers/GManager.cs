@@ -51,15 +51,18 @@ public class GManager : MonoBehaviour
             difficulty += speedOfDifficulty * Time.deltaTime;
         if (monsterCount.value > 10) {
             _gameOver.Dispatch();
-            difficulty = 1f;
-            lvlDamage = 1;
-            lvlText.text = lvlDamage.ToString();
-            monsterCount.value = 0;
         }
     }
 
     public void DamageUp(int value = 1) {
         lvlDamage += value;
         lvlText.text = lvlDamage.ToString();
+    }
+
+    public void Restart() {
+        difficulty = 1f;
+        lvlDamage = 1;
+        lvlText.text = lvlDamage.ToString();
+        monsterCount.value = 0;
     }
 }
