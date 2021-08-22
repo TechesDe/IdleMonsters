@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8971279025210721359}
   - component: {fileID: 8530347499103535934}
   - component: {fileID: 8819197900688304130}
+  - component: {fileID: 7441706247682222300}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -50,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8971279025210721356}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 40c35b1d46fe43242ad4dbf3bb97330d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,8 +113,10 @@ MonoBehaviour:
   monsterCount: {fileID: 11400000, guid: f08035ed902c036469f2d351ba3e268f, type: 2}
   monsterPrefab: {fileID: 1010761591032508707, guid: d4c1531105c910840a21ebe39a3743e2, type: 3}
   _hpSlider: {fileID: 0}
-  _updateEvent: {fileID: 8819197900688304130}
   DelayTimer: 0
+  Hp: 10
+  _updateEvent: {fileID: 8819197900688304130}
+  _restart: {fileID: 7441706247682222300}
 --- !u!114 &8819197900688304130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +130,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _someEvent: {fileID: 11400000, guid: 0b5eeaddcd1ee3e46952d3264f019f2d, type: 2}
+--- !u!114 &7441706247682222300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971279025210721356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c9accab0aab458a8b115beb6ae68e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _someEvent: {fileID: 11400000, guid: 4d114a733161f5b4caeee0f1a3ad02b1, type: 2}

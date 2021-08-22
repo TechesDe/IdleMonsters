@@ -112,7 +112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _updateEvent: {fileID: 1010761591032508704}
   _gameOver: {fileID: 8642692638295730000}
-  monsterCount: {fileID: 11400000, guid: f08035ed902c036469f2d351ba3e268f, type: 2}
+  _monsterCount: {fileID: 11400000, guid: f08035ed902c036469f2d351ba3e268f, type: 2}
+  _score: {fileID: 11400000, guid: 7028445fba2e93147825e7588e7b4ab1, type: 2}
   spawner: {fileID: 0}
   hp: 100
   bornHp: 100
