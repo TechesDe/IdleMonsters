@@ -94,15 +94,29 @@ public class Moster : MonoBehaviour {
         hpSlider.value = (float)hp / bornHp;
         Text text=hpSlider.GetComponentInChildren<Text>();
         if(hp>=0)
-            text.text = hp + "/" + bornHp;
+            text.text = NumText(hp) + "/" + NumText(bornHp);
         else
-            text.text = 0 + "/" + bornHp;
+            text.text = 0 + "/" + NumText(bornHp);
     }
 
     private void randomTarget() {
         float x = Random.Range(spawner.position.x - spawner.localScale.x / 2 + transform.localScale.x / 2, spawner.position.x + spawner.localScale.x / 2 - transform.localScale.x / 2);
         float y = Random.Range(spawner.position.y - spawner.localScale.y / 2 + transform.localScale.y / 2, spawner.position.y + spawner.localScale.y / 2 - transform.localScale.y / 2);
         target = new Vector3(x, y, transform.position.z);
+    }
+
+    private string NumText(int value) {
+        if (value < 0)
+            return "-";
+        if (value > 0 && value < 100)
+            return value.ToString();
+        if (value > 100 && value < 10000)
+            return (value / 1000).ToString() + "." + ((value / 100) % 10).ToString() + "k";
+        if (value > 10000 && value < 1000000)
+            return (value / 1000).ToString() + "k";
+        else {
+            return (value / 1000000).ToString() + "m";
+        }
     }
 
 }
