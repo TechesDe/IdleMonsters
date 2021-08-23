@@ -18,13 +18,22 @@ public class Moster : MonoBehaviour {
     private ScriptableInt _monsterCount;
 
     [SerializeField]
+    private EventDispatcher _die;
+
+    [SerializeField]
     private ScriptableInt _score;
+
+    [SerializeField]
+    private ScriptableInt _money;
+
+    private int cost = 0;
 
     public Transform spawner;
 
     public int hp;
     public int bornHp = 100;
     public float speed = 1f;
+    public float difficultCostFactor = 5f;
 
     public Vector3 target; //Place where object going
 
@@ -81,17 +90,20 @@ public class Moster : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        if (GManager.Instance != null)
+        if (GManager.Instance != null) {
+            cost=(int)(cost+ difficultCostFactor * GManager.Instance.difficulty);
             hp -= GManager.Instance.lvlDamage;
-        else
+        } else
             hp--;
         if (hp <= 0) {
             //TODO: Destroy
             _monsterCount.value--;
             _score.value += bornHp;
+            _money.value += cost;
+            _die.Dispatch();
             Destroy(gameObject);
         }
-        hpSlider.value = (float)hp / bornHp;
+        hpSlider.value = ((float)hp) / bornHp;
         Text text=hpSlider.GetComponentInChildren<Text>();
         if(hp>=0)
             text.text = NumText(hp) + "/" + NumText(bornHp);

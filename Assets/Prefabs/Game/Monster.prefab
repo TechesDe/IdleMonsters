@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1010761591032508705}
   - component: {fileID: 1010761591032508704}
   - component: {fileID: 8642692638295730000}
+  - component: {fileID: 7314444099945105572}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -113,7 +114,9 @@ MonoBehaviour:
   _updateEvent: {fileID: 1010761591032508704}
   _gameOver: {fileID: 8642692638295730000}
   _monsterCount: {fileID: 11400000, guid: f08035ed902c036469f2d351ba3e268f, type: 2}
+  _die: {fileID: 7314444099945105572}
   _score: {fileID: 11400000, guid: 7028445fba2e93147825e7588e7b4ab1, type: 2}
+  _money: {fileID: 11400000, guid: 691aac90a343b3a43aaa21c16fe4ec90, type: 2}
   spawner: {fileID: 0}
   hp: 100
   bornHp: 100
@@ -147,3 +150,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _someEvent: {fileID: 11400000, guid: e76056b07e08a8b43a387fddf5b6ea7b, type: 2}
+--- !u!114 &7314444099945105572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010761591032508707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05df64a3f3ccb4e289350db0bd92d37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _someEvent: {fileID: 11400000, guid: 1e0da3613099ef84b85a4d57e02bfca5, type: 2}

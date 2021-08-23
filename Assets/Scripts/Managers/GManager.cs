@@ -11,6 +11,9 @@ public class GManager : MonoBehaviour
 
     public float MaxDifficulty = 5f;
 
+    public int costDefault = 5;
+    private int cost;
+
     [SerializeField]
     private float _speedOfDifficulty = 0.1f;
 
@@ -20,10 +23,15 @@ public class GManager : MonoBehaviour
     private Text _lvlText;
 
     [SerializeField]
+    private Text _costText;
+
+    [SerializeField]
     private GamePanel _gamePanel;
 
     public static GManager Instance;
 
+    [SerializeField]
+    public ScriptableInt _money;
 
     [SerializeField]
     private ScriptableInt _monsterCount;
@@ -42,6 +50,9 @@ public class GManager : MonoBehaviour
 
     [SerializeField]
     private EventDispatcher _gameOver;
+
+    [SerializeField]
+    private EventDispatcher _lvlUp;
 
     private void Awake() {
         if (Instance != null) {
@@ -86,11 +97,37 @@ public class GManager : MonoBehaviour
     }
 
     public void DamageUp(int value = 1) {
-        lvlDamage += value;
-        _lvlText.text = lvlDamage.ToString();
+        if (_money.value > cost) {
+            _money.value -= cost;
+            cost+=(int)(1.6*cost);
+            _costText.text = cost.ToString();
+            lvlDamage += value;
+            _lvlUp.Dispatch();
+            _lvlText.text = lvlDamage.ToString();
+        } else {
+            StartCoroutine(NotEnoughCoroutine(2f));
+        }
+    }
+
+    private IEnumerator NotEnoughCoroutine(float time) {
+        float timer = 0f;
+        Color d = _costText.color;
+        Color r = new Color(255, 0, 0);
+        while (timer < time) {
+            if ((((int)(timer*2))%2)==1)
+                _costText.color = r;
+            else
+                _costText.color = d;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        _costText.color = d;
     }
 
     public void Restart() {
+        cost = costDefault;
+        _costText.text = cost.ToString();
+        _money.value = 0;
         difficulty = 1f;
         lvlDamage = 1;
         _lvlText.text = lvlDamage.ToString();
