@@ -120,7 +120,7 @@ public class Moster : MonoBehaviour {
     private string NumText(int value) {
         if (value < 0)
             return "-";
-        if (value > 0 && value < 100)
+        if (value >= 0 && value < 100)
             return value.ToString();
         if (value > 100 && value < 10000)
             return (value / 1000).ToString() + "." + ((value / 100) % 10).ToString() + "k";
