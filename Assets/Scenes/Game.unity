@@ -435,7 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 1
   MaxDifficulty: 10
-  cost: 1
+  costDefault: 5
   _speedOfDifficulty: 0.1
   lvlDamage: 1
   _lvlText: {fileID: 1082073392}

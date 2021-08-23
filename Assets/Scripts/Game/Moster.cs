@@ -26,6 +26,9 @@ public class Moster : MonoBehaviour {
     [SerializeField]
     private ScriptableInt _money;
 
+    [SerializeField]
+    private GameObject _monsterModel;
+
     private int cost = 0;
 
     public Transform spawner;
@@ -34,6 +37,8 @@ public class Moster : MonoBehaviour {
     public int bornHp = 100;
     public float speed = 1f;
     public float difficultCostFactor = 5f;
+
+    private bool isDie = false;
 
     public Vector3 target; //Place where object going
 
@@ -90,25 +95,34 @@ public class Moster : MonoBehaviour {
     }
 
     private void OnMouseDown() {
-        if (GManager.Instance != null) {
-            cost=(int)(cost+ difficultCostFactor * GManager.Instance.difficulty);
-            hp -= GManager.Instance.lvlDamage;
-        } else
-            hp--;
-        if (hp <= 0) {
-            //TODO: Destroy
-            _monsterCount.value--;
-            _score.value += bornHp;
-            _money.value += cost;
-            _die.Dispatch();
-            Destroy(gameObject);
+        if (!isDie) {
+            if (GManager.Instance != null) {
+                cost = (int)(cost + difficultCostFactor * GManager.Instance.difficulty);
+                hp -= GManager.Instance.lvlDamage;
+            } else
+                hp--;
+            if (hp <= 0) {
+                _monsterCount.value--;
+                _score.value += bornHp;
+                _money.value += cost;
+                _die.Dispatch();
+                isDie = true;
+                StartCoroutine(AnimationCoroutine(1f));
+            }
+            hpSlider.value = ((float)hp) / bornHp;
+            Text text = hpSlider.GetComponentInChildren<Text>();
+            if (hp >= 0)
+                text.text = NumText(hp) + "/" + NumText(bornHp);
+            else
+                text.text = 0 + "/" + NumText(bornHp);
         }
-        hpSlider.value = ((float)hp) / bornHp;
-        Text text=hpSlider.GetComponentInChildren<Text>();
-        if(hp>=0)
-            text.text = NumText(hp) + "/" + NumText(bornHp);
-        else
-            text.text = 0 + "/" + NumText(bornHp);
+    }
+
+    private IEnumerator AnimationCoroutine(float time) {
+        _monsterModel.TryGetComponent(out Animation_Test anime);
+        anime.DeathAni();
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
     }
 
     private void randomTarget() {
