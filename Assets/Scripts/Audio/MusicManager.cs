@@ -26,6 +26,9 @@ namespace Audio {
         private AudioSoursePlayer _gameOver;
 
         [SerializeField]
+        private AudioSoursePlayer _frost;
+
+        [SerializeField]
         private ScriptableFloat _volume;
 
         [SerializeField]
@@ -86,6 +89,10 @@ namespace Audio {
 
         public void GameOver() {
             _gameOver.Play();
+        }
+
+        public void Frost() {
+            _frost.Play();
         }
     }
 }

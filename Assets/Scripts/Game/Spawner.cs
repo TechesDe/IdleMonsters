@@ -63,7 +63,7 @@ public class Spawner : MonoBehaviour
         if (_bonusTimeout > 0f) {
             _bonusTimeout -= Time.deltaTime;
         } else {
-            int rand = Random.Range(0, _bonusPrefabs.Length - 1);
+            int rand = Random.Range(0, _bonusPrefabs.Length);
             float x = Random.Range(transform.position.x - transform.localScale.x / 2 + _bonusPrefabs[rand].transform.localScale.x / 2, transform.position.x + transform.localScale.x / 2 - _bonusPrefabs[rand].transform.localScale.x / 2);
             float y = Random.Range(transform.position.y - transform.localScale.y / 2 + _bonusPrefabs[rand].transform.localScale.y / 2, transform.position.y + transform.localScale.y / 2 - _bonusPrefabs[rand].transform.localScale.y / 2);
             GameObject bonus=Instantiate(_bonusPrefabs[rand],new Vector3(x,y, _bonusPrefabs[rand].transform.position.z), _bonusPrefabs[rand].transform.rotation);

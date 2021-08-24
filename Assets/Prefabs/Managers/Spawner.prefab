@@ -114,6 +114,7 @@ MonoBehaviour:
   monsterPrefab: {fileID: 1010761591032508707, guid: d4c1531105c910840a21ebe39a3743e2, type: 3}
   _bonusPrefabs:
   - {fileID: 8953504482365098959, guid: 139f083079d3ed844b42b28f33506e0d, type: 3}
+  - {fileID: 7579811533142463771, guid: 1b2de862f3b98894e97012573738ac63, type: 3}
   standartTimeout: 10
   random: 1
   _hpSlider: {fileID: 0}
