@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Events;
 using UnityEngine.UI;
+using Audio;
 
 public class Moster : MonoBehaviour {
 
@@ -51,6 +52,7 @@ public class Moster : MonoBehaviour {
             Destroy(gameObject);
         hp = bornHp;
         _monsterCount.value++;
+        MusicManager.Instance.Born();
     }
 
     public void setHP(int value,bool isBorn = false) {
@@ -107,6 +109,7 @@ public class Moster : MonoBehaviour {
                 _money.value += cost;
                 _die.Dispatch();
                 isDie = true;
+                MusicManager.Instance.Die();
                 StartCoroutine(AnimationCoroutine(1f));
             }
             hpSlider.value = ((float)hp) / bornHp;

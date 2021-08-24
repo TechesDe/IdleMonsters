@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Events;
 using UnityEngine.UI;
+using Audio;
 
 public class GManager : MonoBehaviour
 {
@@ -93,6 +94,8 @@ public class GManager : MonoBehaviour
             i++;
             _records.records.Insert(i, record);
             _gameOver.Dispatch();
+            MusicManager.Instance.Stop();
+            MusicManager.Instance.GameOver();
         }
     }
 
@@ -135,5 +138,6 @@ public class GManager : MonoBehaviour
         _score.value = 0;
         _gamePanel.gameObject.SetActive(true);
         UpdateManager.Instance.PauseToogle(false);
+        MusicManager.Instance.PlayGameMusic();
     }
 }
