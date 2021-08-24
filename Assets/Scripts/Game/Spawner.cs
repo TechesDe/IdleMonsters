@@ -13,6 +13,14 @@ public class Spawner : MonoBehaviour
     private GameObject monsterPrefab;
 
     [SerializeField]
+    private GameObject[] _bonusPrefabs;
+
+    private float _bonusTimeout=1f;
+
+    public float standartTimeout=1f;
+    public float random=0.1f;
+
+    [SerializeField]
     private Slider _hpSlider;
 
     [SerializeField]
@@ -51,6 +59,21 @@ public class Spawner : MonoBehaviour
             DelayTimer = 0f;
             Spawn();
             Hp = (int)(GManager.Instance.difficulty * GManager.Instance.lvlDamage * 10+10 * GManager.Instance.lvlDamage);
+        }
+        if (_bonusTimeout > 0f) {
+            _bonusTimeout -= Time.deltaTime;
+        } else {
+            int rand = Random.Range(0, _bonusPrefabs.Length - 1);
+            float x = Random.Range(transform.position.x - transform.localScale.x / 2 + _bonusPrefabs[rand].transform.localScale.x / 2, transform.position.x + transform.localScale.x / 2 - _bonusPrefabs[rand].transform.localScale.x / 2);
+            float y = Random.Range(transform.position.y - transform.localScale.y / 2 + _bonusPrefabs[rand].transform.localScale.y / 2, transform.position.y + transform.localScale.y / 2 - _bonusPrefabs[rand].transform.localScale.y / 2);
+            GameObject bonus=Instantiate(_bonusPrefabs[rand],new Vector3(x,y, _bonusPrefabs[rand].transform.position.z), _bonusPrefabs[rand].transform.rotation);
+            bonus.TryGetComponent(out Bonus b);
+            if (b != null)
+                b.lifeTime = GManager.Instance.MaxDifficulty + 1 - GManager.Instance.difficulty;
+            if (Random.Range(0, 1) == 0)
+                _bonusTimeout = standartTimeout + Random.Range(0f, random);
+            else
+                _bonusTimeout = standartTimeout - Random.Range(0f, random);
         }
     }
 

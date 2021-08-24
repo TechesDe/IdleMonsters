@@ -112,6 +112,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterCount: {fileID: 11400000, guid: f08035ed902c036469f2d351ba3e268f, type: 2}
   monsterPrefab: {fileID: 1010761591032508707, guid: d4c1531105c910840a21ebe39a3743e2, type: 3}
+  _bonusPrefabs:
+  - {fileID: 8953504482365098959, guid: 139f083079d3ed844b42b28f33506e0d, type: 3}
+  standartTimeout: 5
+  random: 1
   _hpSlider: {fileID: 0}
   DelayTimer: 0
   Hp: 10
